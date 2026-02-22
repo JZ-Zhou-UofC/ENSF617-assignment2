@@ -1,0 +1,5 @@
+garbage_data/
+garbage_data.tar.gz
+garbage_net.pth
+*.pt
+*.pth

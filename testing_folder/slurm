@@ -1,0 +1,42 @@
+#!/bin/bash
+#SBATCH --job-name=garbage_train
+#SBATCH --partition=gpu
+#SBATCH --gres=gpu:1
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=16G
+#SBATCH --time=04:00:00
+#SBATCH --output=train10.out
+#SBATCH --error=train10.err
+
+# =========================
+# Load conda
+# =========================
+
+module load conda/base
+
+# Activate your environment
+conda activate john
+
+# =========================
+# Go to your working directory
+# =========================
+
+cd /home/john.zhou1
+
+# =========================
+# Show GPU info (optional, useful for debugging)
+# =========================
+
+echo "Running on:"
+hostname
+
+echo "GPU info:"
+nvidia-smi
+
+# =========================
+# Run training
+# =========================
+
+python train10.py
+
+echo "Training finished"
