@@ -6,6 +6,15 @@ from torch.utils.data import DataLoader
 import os
 
 print("Using EfficientNet-B2 with gradual unfreezing added smoothing + input transformation")
+# =========================
+# What has been done to improve the accucracy
+# 1. Used EfficientNet-B2 as the based model
+# 2. Input Augmentation: randomly rotate, horizontal flip, randomly change the color property
+# 3. gradual unfreezing: unfreezed the last 4 layers at epoch 5 with a smaller learning rate to learn the output features
+# 4. freeze batchnorm. We think the batchnorm for the EfficientNet-B2 will be better than the batchnorm produced by our data set
+# 5. replaced the classification layer with our own layers which has dropout to combat overfitting 
+# 6. save the best model based on valdiation accuracy. Best model produced at epoch 11.
+# =========================
 
 # =========================
 # CONFIG
@@ -97,7 +106,7 @@ transform = {
 }
 
 # =========================
-# DATASETS
+# DATALOADER
 # =========================
 
 image_datasets = {
@@ -174,6 +183,7 @@ def train_model(optimizer):
 
         # =========================
         # Gradual unfreezing
+        # Unfreeze last 4 layers at epoch 5, 10% learing rate
         # =========================
 
         if epoch == 5:
