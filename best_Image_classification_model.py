@@ -5,7 +5,6 @@ from torchvision import datasets, transforms, models
 from torch.utils.data import DataLoader
 import os
 
-print("Using EfficientNet-B2 with gradual unfreezing added smoothing + input transformation")
 # =========================
 # What has been done to improve the accucracy
 # 1. Used EfficientNet-B2 as the based model
