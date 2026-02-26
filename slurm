@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=16G
 #SBATCH --time=04:00:00
-#SBATCH --output=train10.out
-#SBATCH --error=train10.err
+#SBATCH --output=train12.out
+#SBATCH --error=train12.err
 
 # =========================
 # Load conda
@@ -37,6 +37,6 @@ nvidia-smi
 # Run training
 # =========================
 
-python train10.py
+python train12.py
 
 echo "Training finished"

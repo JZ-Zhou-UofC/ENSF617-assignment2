@@ -4,7 +4,7 @@ import torch.optim as optim
 from torchvision import datasets, transforms, models
 from torch.utils.data import DataLoader
 import os
-
+print(f"Same as tutorial")
 # =========================
 # CONFIG
 # =========================
