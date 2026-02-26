@@ -5,6 +5,7 @@ from torchvision import datasets, transforms, models
 from torch.utils.data import DataLoader
 import os
 
+print("fixed the warning. the checkpoints are saved, smaller learning rate")
 # =========================
 # What has been done to improve the accucracy
 # 1. Used EfficientNet-B2 as the based model

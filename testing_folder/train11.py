@@ -4,7 +4,7 @@ import torch.optim as optim
 from torchvision import datasets, transforms, models
 from torch.utils.data import DataLoader
 import os
-
+print("Batch size increased. gradual unfreezing delayed")
 # =========================
 # What has been done to improve the accucracy
 # 1. Used EfficientNet-B2 as the based model
