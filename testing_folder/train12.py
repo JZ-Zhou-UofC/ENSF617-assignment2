@@ -26,7 +26,7 @@ val_dir = os.path.join(data_dir, "CVPR_2024_dataset_Val")
 test_dir = os.path.join(data_dir, "CVPR_2024_dataset_Test")
 
 BATCH_SIZE = 32
-EPOCHS = 25
+EPOCHS = 15
 LEARNING_RATE = 0.0005
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -60,7 +60,9 @@ transform = {
                 brightness=0.2, contrast=0.2, saturation=0.2, hue=0.05
             ),
             transforms.ToTensor(),
+            transforms.RandomErasing(p=0.2),
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+  
         ]
     ),
     "val": transforms.Compose(
@@ -159,10 +161,10 @@ def train_model(optimizer):
 
         # =========================
         # Gradual unfreezing
-        # Unfreeze last 4 layers at epoch 10, 10% learing rate
+        # Unfreeze last 4 layers at epoch 10, 5% learing rate
         # =========================
 
-        if epoch == 10:
+        if epoch == 5:
 
             print("\nUnfreezing last 4 EfficientNet blocks...")
 
@@ -176,7 +178,7 @@ def train_model(optimizer):
                     {"params": model.classifier.parameters(), "lr": LEARNING_RATE},
                     {
                         "params": model.features[-4:].parameters(),
-                        "lr": LEARNING_RATE * 0.1,
+                        "lr": LEARNING_RATE * 0.05,
                     },
                 ]
             )
