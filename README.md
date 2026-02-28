@@ -1,31 +1,53 @@
 
 ---
 # Assignment 2 Group 5
-# Multimodal Garbage Classification Project (Image + Text)
+# Multi-modal Garbage Classification Project (Image + Text)
 
 ## Overview
 
-This project implements a multimodal classification system that combines both image and text features to improve classification performance. The image model and text model were trained separately, and their outputs are combined in a final notebook to produce the final predictions.
+This project implements a multi-modal classification system that combines both image and text features to improve classification performance. The image model and text model were trained separately, and their outputs are combined in a final notebook to produce the final predictions.
 
 The workflow consists of three main components:
 
-* Text model training (Jupitor Notebook)
-* Image model training (TALC cluster)
-* Confidence based selection combining both models (Notebook)
+* Slurm batch script
+* Text model training (python file trained on TALC)
+* Image model training (python file trained on TALC)
+* Confidence based selection combining both models (Jupyter Notebook File executed on Google Colab)
 
 ---
 
 ## Components
 
-### 1. Text Model (Trained locally)
+Slurm file to run the script on TALC:
 
 Location:
 
 ```text
-./text_model.ipynb
+./garbage_class.slurm
 ```
 
-Description:
+Slurm script Description:
+
+*Requests a GPU-enabled compute node
+
+*Installs a fresh Conda environment
+
+*Installs PyTorch + ML libraries
+
+*Runs two deep learning Python scripts (image and text)
+
+*Cleans up afterward
+
+
+### 1. Text Model (Trained on TALC)
+
+Location:
+
+```text
+./text_model.py
+```
+
+Text Model Description:
 
 * The tutorial text model training is slightly modified to produce a better result
 * Transfer learning is used with a pretrained CNN architecture.
@@ -34,19 +56,15 @@ Description:
 * Best accuracy: 85.31%
 
 
-### 2. Image Model (Trained on TALC Cluster)
+### 2. Image Model (Trained on TALC)
 
-training script:
+Location:
 
 ```text
 ./best_Image_classification_model.py
 ```
-slurm file to run the script on TALC:
 
-```text
-./slurm
-```
-Description:
+Image Model Description:
 
 * The image model is trained on the TALC high-performance computing cluster.
 * Images are loaded using PyTorch ImageFolder.
@@ -56,20 +74,15 @@ Description:
 * Best accuracy: 78.5%
 
 
-Test training Location:
-```text
-./testing_folder
-```
-
-### 3. Confidence based selection
+### 3. Confidence based selection (Google Colab)
 
 Location:
 
 ```text
-confidence_based_selection.ipynb
+./confidence_based_selection_on_assignment1_data.ipynb
 ```
 
-Description:
+Confidence based selection Description:
 
 This notebook:
 
@@ -82,44 +95,47 @@ This notebook:
 
 ## How to Run
 
-### Step 1: Train text model
+### Execute the garbage_class.slurm file on TALC.
+Modify the slurm file to point to your env and directory.
 
-Open:
 
-```text
-train_text_model.ipynb
-```
 
-Install all dependency listed in cell 1.
+### Step 1: Train Image model (The slurm file executes best_Image_classification_model.py)
 
-Run all cells to generate:
-
-```text
-best_text_model.pth
-```
-
-### Step 2: Train Image model
-
-Login to [TALC](https://rcs.ucalgary.ca/TALC_Cluster_Guide)
-
-Install all dependency in a conda env in TALC.  
-Modify the slurm file to point to your env and directroy. 
-```text
-./slurm
-```
-Use the slurm file to run the script
-```text
-./best_Image_classification_model.py
-```
 The image model will be saved in TALC
 ```text
 best_image_model.pth
 ```
 
-### Step 3: View the result
-make sure to have teh data set and model in the correct directory.  
-run the following notebook
+### Step 2: Train text model (The slurm file executes text_model.py)
+
+The text model will be saved in TALC
 ```text
-./confidence_based_selection.ipynb
+best_text_model.pth
 ```
+
+
+### Execute the confidence_based_selection_on_assignment1_data.ipynb on Google Colab
+Requirements:
+*Load the best_image_model.pth on google drive
+*Load the best_text_model.pth on google drive
+*Load the garbage dataset on google drive
+
+
+Instead of averaging predictions, the notebook:
+
+Computes softmax probabilities for:
+
+*Image model
+
+*Text model
+
+Selects the prediction from the model with higher confidence
+
+Stores final fused predictions (confidence-based selection (fusion)).
+
+Computes evaluation such as confusion matrix and also reveals misclassified results.
+
+NB: Slurm output file displays logs during image and text training on TALC
+
 
