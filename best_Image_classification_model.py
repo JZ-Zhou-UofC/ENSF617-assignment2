@@ -119,7 +119,7 @@ dataloaders = {
         image_datasets[x],
         batch_size=BATCH_SIZE,
         shuffle=(x == "train"),
-        num_workers=4,
+        num_workers=2,
         pin_memory=True,
     )
     for x in ["train", "val", "test"]
@@ -165,7 +165,7 @@ freeze_batchnorm(model)
 
 criterion = nn.CrossEntropyLoss()
 
-optimizer = optim.Adam(model.classifier.parameters(), lr=LEARNING_RATE)
+optimizer = optim.AdamW(model.classifier.parameters(), lr=LEARNING_RATE)
 
 # =========================
 # TRAIN FUNCTION
@@ -262,7 +262,7 @@ def train_model(optimizer):
 
 def test_model():
 
-    model.load_state_dict(torch.load("best_model.pth"))
+    model.load_state_dict(torch.load("best_model.pth", weights_only=True))
 
     model.eval()
 
