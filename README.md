@@ -36,7 +36,7 @@ Slurm script Description:
 
 * Runs two deep learning Python scripts (image and text)
 
-*Cleans up afterward
+* Cleans up afterward
 
 
 ### 1. Text Model (Trained on TALC)
