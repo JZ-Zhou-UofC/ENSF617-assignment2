@@ -7,7 +7,7 @@
 
 This project implements a multi-modal classification system that combines both image and text features to improve classification performance. The image model and text model were trained separately, and their outputs are combined in a final notebook to produce the final predictions.
 
-The workflow consists of three main components:
+The workflow consists of three main components in addition to the slurm script:
 
 * Slurm batch script
 * Text model training (python file trained on TALC)
@@ -28,13 +28,13 @@ Location:
 
 Slurm script Description:
 
-*Requests a GPU-enabled compute node
+* Requests a GPU-enabled compute node
 
-*Installs a fresh Conda environment
+* Installs a fresh Conda environment
 
-*Installs PyTorch + ML libraries
+* Installs PyTorch + ML libraries
 
-*Runs two deep learning Python scripts (image and text)
+* Runs two deep learning Python scripts (image and text)
 
 *Cleans up afterward
 
@@ -126,16 +126,16 @@ Instead of averaging predictions, the notebook:
 
 Computes softmax probabilities for:
 
-*Image model
+* Image model
 
-*Text model
+* Text model
 
-Selects the prediction from the model with higher confidence
+* Selects the prediction from the model with higher confidence
 
-Stores final fused predictions (confidence-based selection (fusion)).
+* Stores final fused predictions (confidence-based selection (fusion)).
 
-Computes evaluation such as confusion matrix and also reveals misclassified results.
+* Computes evaluation such as confusion matrix and also reveals misclassified results.
 
-NB: Slurm output file displays logs during image and text training on TALC
+Also Slurm output file displays logs during image and text training on TALC
 
 
