@@ -116,10 +116,10 @@ best_text_model.pth
 
 
 ### Execute the confidence_based_selection_on_assignment1_data.ipynb on Google Colab
-Requirements:
-*Load the best_image_model.pth on google drive
-*Load the best_text_model.pth on google drive
-*Load the garbage dataset on google drive
+Requirements: <br>
+* Load the best_image_model.pth on google drive
+* Load the best_text_model.pth on google drive
+* Load the garbage dataset on google drive
 
 
 Instead of averaging predictions, the notebook:
