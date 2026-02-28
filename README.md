@@ -9,7 +9,7 @@ This project implements a multi-modal classification system that combines both i
 
 The workflow consists of three main components in addition to the slurm script:
 
-* Slurm batch script
+* Slurm shell script
 * Text model training (python file trained on TALC)
 * Image model training (python file trained on TALC)
 * Confidence based selection combining both models (Jupyter Notebook File executed on Google Colab)
